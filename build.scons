@@ -1,0 +1,17 @@
+import os
+
+Import('env')
+
+vpi_sources = Split("""
+        vpi_pyeval.c
+        """)
+
+vpi_builder = Builder(
+        action='iverilog-vpi $CCFLAGS $SOURCES',
+        suffix='.vpi', src_suffix='.c')
+
+env.Append(BUILDERS={'Vpi': vpi_builder})
+vpi_target = env.Vpi(target='vpi_pyeval', source=vpi_sources)
+SideEffect('vpi_pyeval.o', vpi_target)
+
+# vim:ft=python:

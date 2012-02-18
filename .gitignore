@@ -1,0 +1,10 @@
+# Project specific
+.sconsign.dblite
+*.vpi
+*.o
+
+# Mac OS X
+.DS_Store
+
+# Vim swap files
+*.sw*

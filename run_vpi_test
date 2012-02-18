@@ -1,0 +1,5 @@
+#!/bin/sh
+scons
+iverilog -o vpi_test.vvp vpi_test.v
+vvp -M. -mvpi_pyeval vpi_test.vvp
+rm vpi_test.vvp
