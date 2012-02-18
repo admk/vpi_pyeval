@@ -28,15 +28,11 @@ static int pyeval_calltf(char *user_data)
 {
     char py_stmt[kPyStmtLength];
     strcpy(py_stmt, tf_getcstringp(1));
-    int i = 2;
-    while (true)
+    for (int i = 2; i <= tf_nump(); i++)
     {
-        int tf_type = tf_typep(i);
-        if (tf_type == TF_NULLPARAM)
-            break;
         // convert argument to string and append
         char py_arg[kPyStmtLength];
-        switch (tf_type)
+        switch (tf_typep(i))
         {
         case TF_STRING:
             strcpy(py_arg, tf_getcstringp(i));
@@ -53,7 +49,6 @@ static int pyeval_calltf(char *user_data)
             strcpy(py_arg, "XXXX");
         }
         strcat(py_stmt, py_arg);
-        i++;
     }
     
     // return value
