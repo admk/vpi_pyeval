@@ -1,12 +1,14 @@
-import os
-
-Import('env')
-
+env = Environment(
+        CCFLAGS=['-std=gnu99', '-fPIC', '-Wall', '-g', '-O3'],
+        CPPPATH=['/usr/include/python2.7', '/usr/local/include/iverilog'],
+        LINKFLAGS=' '.join(
+                ['-bundle', '-undefined suppress', '-flat_namespace']),
+        LIBPATH=['/usr/local/lib'],
+        LIBS=['python2.7', 'veriuser', 'vpi'])
 vpi_sources = Split("""
         vpi_pyeval.c
         """)
-
 vpi_target = env.LoadableModule(target='pyeval.vpi', source=vpi_sources)
-Export('vpi_target')
+Return('vpi_target')
 
 # vim:ft=python:
