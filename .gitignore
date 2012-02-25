@@ -1,7 +1,6 @@
 # Project specific
 .sconsign.dblite
-*.vpi
-*.o
+build
 
 # Mac OS X
 .DS_Store
