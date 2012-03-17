@@ -1,4 +1,5 @@
 env = Environment(
+        CC=['clang'],
         CCFLAGS=['-std=gnu99', '-fPIC', '-Wall', '-g', '-O3'],
         CPPPATH=['/usr/include/python2.7', '/usr/local/include/iverilog'],
         LINKFLAGS=' '.join(
