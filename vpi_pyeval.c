@@ -50,7 +50,7 @@ static int pyeval_calltf(char *user_data)
         }
         strcat(py_stmt, py_arg);
     }
-    
+
     // return value
     tf_putp(0, pyeval(py_stmt));
     return 0;
