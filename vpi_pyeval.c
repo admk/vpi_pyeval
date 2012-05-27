@@ -14,6 +14,8 @@ int pyeval(const char *stmt)
         Py_Initialize();
         globals = PyModule_GetDict(PyImport_AddModule("__main__"));
     }
+    // clear all previous errors
+    PyErr_Clear();
     // run as eval
     PyObject *py_result = PyRun_String(
             stmt, Py_eval_input, globals, globals);
@@ -21,7 +23,13 @@ int pyeval(const char *stmt)
         return PyLong_AsLong(py_result);
     // run as exec
     PyErr_Clear();
-    return PyRun_SimpleString(stmt);
+    int result = PyRun_SimpleString(stmt);
+    if (PyErr_Occurred())
+    {
+        PyErr_Print();
+        PyErr_Clear();
+    }
+    return result;
 }
 
 static int pyeval_calltf(char *user_data)
