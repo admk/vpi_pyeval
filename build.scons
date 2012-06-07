@@ -1,10 +1,24 @@
+import platform
+
+system = platform.system()
+if system == 'Linux':
+    cc = 'gcc'
+    lf = ['-shared']
+elif system == 'Darwin':
+    cc = 'clang'
+    lf = ['-bundle', '-undefined suppress', ]
+
 env = Environment(
-        CC=['clang'],
+        CC=[cc],
         CCFLAGS=['-std=gnu99', '-fPIC', '-Wall', '-g', '-O3'],
-        CPPPATH=['/usr/include/python2.7', '/usr/local/include/iverilog'],
+        CPPPATH=[
+                '/usr/include/python2.7',
+                '/usr/include/iverilog',
+                '/usr/local/include/iverilog',
+                ],
         LINKFLAGS=' '.join(
-                ['-bundle', '-undefined suppress', '-flat_namespace']),
-        LIBPATH=['/usr/local/lib'],
+                lf + ['-flat_namespace']),
+        LIBPATH=['/usr/local/lib', '/usr/lib'],
         LIBS=['python2.7', 'veriuser', 'vpi'])
 vpi_sources = Split("""
         vpi_pyeval.c
